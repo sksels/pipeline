@@ -14,7 +14,8 @@ export class PipelineStack extends Stack {
       crossAccountKeys: false,
     });
 
-    const sourceOutput = new Artifact("SourceOutput");
+    const cdkSourceOutput = new Artifact("CDKSourceOutput");
+    const serviceSourceOutput = new Artifact("ServiceSourceOutput");
 
     pipeline.addStage({
       stageName: "Source",
@@ -25,19 +26,35 @@ export class PipelineStack extends Stack {
           branch: "main",
           actionName: "Pipeline_Source",
           oauthToken: SecretValue.secretsManager("github-token"),
-          output: sourceOutput,
+          output: cdkSourceOutput,
+        }),
+      ],
+    });
+
+ 
+    pipeline.addStage({
+      stageName: "Source",
+      actions: [
+        new GitHubSourceAction({
+          owner: "sksels",
+          repo: "server",
+          branch: "main",
+          actionName: "Service_Source",
+          oauthToken: SecretValue.secretsManager("github-token"),
+          output: serviceSourceOutput,
         }),
       ],
     });
 
     const cdkBuildOutput = new Artifact("CdkBuildOutput");
+    const serviceBuildOutput = new Artifact("ServiceBuildOutput");
 
     pipeline.addStage({
       stageName: "Build",
       actions: [
         new CodeBuildAction({
           actionName: "CDK_Build",
-          input: sourceOutput,
+          input: cdkSourceOutput,
           outputs: [cdkBuildOutput],
           project: new PipelineProject(this, "CdkBuildProject", {
             environment: {
@@ -45,6 +62,25 @@ export class PipelineStack extends Stack {
             },
             buildSpec: BuildSpec.fromSourceFilename(
               "build-specs/cdk-build-spec.yml"
+            ),
+          }),
+        }),
+      ],
+    });
+
+    pipeline.addStage({
+      stageName: "Build",
+      actions: [
+        new CodeBuildAction({
+          actionName: "Service_Build",
+          input: serviceSourceOutput,
+          outputs: [serviceBuildOutput],
+          project: new PipelineProject(this, "ServiceBuildProject", {
+            environment: {
+              buildImage: LinuxBuildImage.STANDARD_5_0,
+            },
+            buildSpec: BuildSpec.fromSourceFilename(
+              "build-specs/service-build-spec.yml"
             ),
           }),
         }),
