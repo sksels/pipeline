@@ -44,7 +44,7 @@ export class PipelineStack extends Stack {
     const serviceBuildOutput = new Artifact("ServiceBuildOutput");
 
     pipeline.addStage({
-      stageName: "CDK_Build",
+      stageName: "Build",
       actions: [
         new CodeBuildAction({
           actionName: "CDK_Build",
