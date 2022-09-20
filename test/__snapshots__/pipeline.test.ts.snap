@@ -925,7 +925,7 @@ exports[`Pipeline Stack 1`] = `
           ],
         },
         "Source": {
-          "BuildSpec": "build-specs/service-build-spec.yml",
+          "BuildSpec": "build-specs/service-build-specs.yml",
           "Type": "CODEPIPELINE",
         },
       },
