@@ -1,13 +1,12 @@
-import * as cdk from "aws-cdk-lib";
-import { Artifact, Pipeline } from "aws-cdk-lib/aws-codepipeline";
+import {Construct} from 'constructs';
+import { Artifact, Pipeline, } from "aws-cdk-lib/aws-codepipeline";
 import { CloudFormationCreateUpdateStackAction, CodeBuildAction,GitHubSourceAction,} from "aws-cdk-lib/aws-codepipeline-actions";
-import { SecretValue } from "aws-cdk-lib";
+import { SecretValue, Stack, StackProps, } from "aws-cdk-lib";
 import { BuildSpec,LinuxBuildImage,PipelineProject,} from "aws-cdk-lib/aws-codebuild";
-import { Construct } from "constructs";
 
 
-export class PipelineStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+export class PipelineStack extends Stack {
+  constructor(scope:Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const pipeline = new Pipeline(this, "Pipeline", {
