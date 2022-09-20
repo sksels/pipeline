@@ -59,12 +59,6 @@ export class PipelineStack extends Stack {
             ),
           }),
         }),
-      ],
-    });
-
-    pipeline.addStage({
-      stageName: "Service_Build",
-      actions: [
         new CodeBuildAction({
           actionName: "Service_Build",
           input: serviceSourceOutput,
@@ -78,6 +72,7 @@ export class PipelineStack extends Stack {
             ),
           }),
         }),
+
       ],
     });
 
