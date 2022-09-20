@@ -72,7 +72,6 @@ export class PipelineStack extends Stack {
             ),
           }),
         }),
-
       ],
     });
 
