@@ -6,6 +6,14 @@ import { ServiceStack } from '../lib/service-stack';
 
 const app              = new cdk.App();
 const pipelineStack    = new PipelineStack(app, 'PipelineStack', {});
-const serviceStackprod = new ServiceStack(app, 'ServiceStackProd');
 
-pipelineStack.addServiceStage(serviceStackprod, "Prod");
+const serviceStackTest = new ServiceStack(app, 'ServiceStackTest',{
+    stageName: "Test",
+})
+
+const serviceStackProd = new ServiceStack(app, 'ServiceStackProd',{
+    stageName: "Prod",
+});
+
+pipelineStack.addServiceStage(serviceStackTest, "Test");
+pipelineStack.addServiceStage(serviceStackProd, "Prod");
