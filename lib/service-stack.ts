@@ -39,6 +39,7 @@ export class ServiceStack extends Stack {
       apiName: `MyService${props.stageName}`
     });
 
+    /**
     if (props.stageName === 'Prod') {
       new LambdaDeploymentGroup(this, "DeploymentGroup",{
         alias: alias,
@@ -68,6 +69,6 @@ export class ServiceStack extends Stack {
       exportName: `ServiceEndpoint${props.stageName}`,
       value: httpApi.apiEndpoint,
       description: "API Endpoint",
-    });
+    });**/
   }
 }

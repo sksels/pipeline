@@ -14,14 +14,14 @@ test ('Pipeline Stack', ()=> {
     expect(Template.fromStack(stack).toJSON()).toMatchSnapshot();
 });
 
-/** 
+
 test("Adding service stage", () => {
     // GIVEN
     const app = new App();
-    const serviceStack = new ServiceStack(app, "ServiceStack");
+    const serviceStack = new ServiceStack(app, "ServiceStack", {stageName: "Test",});
     const pipelineStack = new PipelineStack(app, "PipelineStack");
   
-    // WHEN
+    // WHEN                                                                                                         
     pipelineStack.addServiceStage(serviceStack, "Test");
   
     // THEN
@@ -30,11 +30,9 @@ test("Adding service stage", () => {
         {
             stages: Match.arrayWith([
                 Match.objectLike({
-                    Name: "Prod",
-                })
-            ])
+                    Name: "Test",
+                }),
+            ]),
         }
-    )
+    );
 });
-
-**/
