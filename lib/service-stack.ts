@@ -31,7 +31,7 @@ export class ServiceStack extends Stack {
 
     const alias =  new Alias(this, "ServiceLambdaAlias", {
       version: lambda.currentVersion,
-      aliasName: `ServiceLambda.Alias${props.stageName}`,
+      aliasName: `ServiceLambdaAlias${props.stageName}`,
     });
 
     const httpApi = new HttpApi(this, "ServiceAPI", {
