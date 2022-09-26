@@ -116,7 +116,7 @@ export class PipelineStack extends Stack {
       ],
     });
   }
-  /**
+  
   public addServiceIntegrationTestToStage(
     stage: IStage,
     serviceEndpoint: string
@@ -143,5 +143,5 @@ export class PipelineStack extends Stack {
         runOrder: 2,
       })
     );
-  } **/
+  }
 }
