@@ -39,6 +39,12 @@ export class ServiceStack extends Stack {
       apiName: `MyService${props.stageName}`
     });
 
+    this.serviceEndpointOutput = new CfnOutput(this, "ApiEndpointOutput", {
+      exportName: `ServiceEndpoint${props.stageName}`,
+      value: httpApi.apiEndpoint,
+      description: "API Endpoint",
+    });
+
     /**
     if (props.stageName === 'Prod') {
       new LambdaDeploymentGroup(this, "DeploymentGroup",{
@@ -63,12 +69,6 @@ export class ServiceStack extends Stack {
             })
         ]
       })
-    }
-
-    this.serviceEndpointOutput = new CfnOutput(this, "ApiEndpointOutput", {
-      exportName: `ServiceEndpoint${props.stageName}`,
-      value: httpApi.apiEndpoint,
-      description: "API Endpoint",
-    });**/
+    } */
   }
 }
