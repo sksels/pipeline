@@ -4,6 +4,11 @@ import { CloudFormationCreateUpdateStackAction, CodeBuildAction,CodeBuildActionT
 import { SecretValue, Stack, StackProps, } from "aws-cdk-lib";
 import { BuildEnvironmentVariableType, BuildSpec,LinuxBuildImage,PipelineProject,} from "aws-cdk-lib/aws-codebuild";
 import { ServiceStack } from './service-stack';
+import { SnsTopic } from 'aws-cdk-lib/aws-events-targets';
+import { Topic } from 'aws-cdk-lib/aws-sns';
+import { RuleScope } from 'aws-cdk-lib/aws-config';
+import { EventField, RuleTargetInput } from 'aws-cdk-lib/aws-events';
+import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 
 
 export class PipelineStack extends Stack {
@@ -11,9 +16,21 @@ export class PipelineStack extends Stack {
   private readonly cdkBuildOutput: Artifact;
   private readonly serviceBuildOutput: Artifact;
   private readonly serviceSourceOutput: Artifact;
+  private readonly pipelineNotificationsTopic: Topic;
 
   constructor(scope:Construct, id: string, props?: StackProps) {
     super(scope, id, props);
+
+    this.pipelineNotificationsTopic = new Topic(
+      this, "PipelineNotificationsTopic", 
+      {
+        topicName: "PipelineNotifications",
+      }
+    );
+
+    this.pipelineNotificationsTopic.addSubscription(
+        new EmailSubscription("sksels.subbiah@gmail.com")
+    );
 
     this.pipeline = new Pipeline(this, "Pipeline", {
       pipelineName: "Pipeline",
@@ -121,8 +138,7 @@ export class PipelineStack extends Stack {
     stage: IStage,
     serviceEndpoint: string
   ) {
-    stage.addAction(
-      new CodeBuildAction({
+    const integTestAction = new CodeBuildAction({
         actionName: "Integration_Tests",
         input: this.serviceSourceOutput,
         project: new PipelineProject(this, "ServiceIntegrationTestsProject", {
@@ -141,7 +157,26 @@ export class PipelineStack extends Stack {
         },
         type: CodeBuildActionType.TEST,
         runOrder: 2,
-      })
-    );
+      });
+      stage.addAction(integTestAction);
+      integTestAction.onStateChange(
+        "IntegTestFailed",
+          new SnsTopic(this.pipelineNotificationsTopic,{
+          message: RuleTargetInput.fromText(
+            `Integ Test Failed: Details: ${EventField.fromPath(
+            "$.detail.execution-result.external-execution-url"
+            )}`
+          ),
+        }),
+        {
+          ruleName: "IntegTestFailed",
+          eventPattern:{
+            detail: {
+              state: ["Failed"]
+            },
+          },  
+          description: "Integration Test has failed",
+        }
+      );
   }
 }

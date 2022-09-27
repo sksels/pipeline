@@ -572,6 +572,22 @@ exports[`Pipeline Stack 1`] = `
       },
       "Type": "AWS::CodePipeline::Pipeline",
     },
+    "PipelineNotificationsTopic827A419F": {
+      "Properties": {
+        "TopicName": "PipelineNotifications",
+      },
+      "Type": "AWS::SNS::Topic",
+    },
+    "PipelineNotificationsTopicskselssubbiahgmailcom9296907A": {
+      "Properties": {
+        "Endpoint": "sksels.subbiah@gmail.com",
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "PipelineNotificationsTopic827A419F",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
     "PipelinePipelineUpdateCodePipelineActionRoleDefaultPolicy024C1709": {
       "Properties": {
         "PolicyDocument": {
