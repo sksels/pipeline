@@ -27,7 +27,7 @@ export class ServiceHealthCanary extends Construct {
             test: Test.custom({
                 code: Code.fromInline(
                     fs.readFileSync(
-                        path.join(__dirname,"../../canary/canary.ts"),
+                        path.join(__dirname,"../canary/canary.ts"),
                         "utf8"
                     )
                 ),
