@@ -2,6 +2,7 @@
 import { ServiceHealthCanary } from "../lib/service-health-canary";
 import { App, Stack } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
+import { Topic } from "aws-cdk-lib/aws-sns";
 
 
 test ("ServiceHealthCanary", () => {
@@ -11,6 +12,7 @@ test ("ServiceHealthCanary", () => {
   new ServiceHealthCanary(stack, "TestCanary", {
     apiEndpoint: "api.example.com",
     canaryName: "test-canary",
+    alarmTopic: new Topic(stack, "TestAlarmTopic"),
   });
 
   expect(Template.fromStack(stack).toJSON()).toMatchSnapshot();
