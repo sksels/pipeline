@@ -1,15 +1,23 @@
 import * as Pipeline from "../lib/pipeline-stack";
-import { App } from "aws-cdk-lib";
+import { App, Environment } from "aws-cdk-lib";
 import { Match, Template,} from "aws-cdk-lib/assertions";
 import { CfnDisk } from "aws-cdk-lib/aws-lightsail";
 import { ServiceStack } from "../lib/service-stack";
 import { PipelineStack } from "../lib/pipeline-stack";
 
 
+const testEnv: Environment={
+    account: "774291489247",
+    region: "us-east-1"
+}
+
+
 test ('Pipeline Stack', ()=> {
     const app = new App();
     // when
-    const stack = new Pipeline.PipelineStack(app, "myTestStack");
+    const stack = new Pipeline.PipelineStack(app, "myTestStack",{
+        env: testEnv
+    });
     // then
     expect(Template.fromStack(stack).toJSON()).toMatchSnapshot();
 });
@@ -18,8 +26,8 @@ test ('Pipeline Stack', ()=> {
 test("Adding service stage", () => {
     // GIVEN
     const app = new App();
-    const serviceStack = new ServiceStack(app, "ServiceStack", {stageName: "Test",});
-    const pipelineStack = new PipelineStack(app, "PipelineStack");
+    const serviceStack = new ServiceStack(app, "ServiceStack", {stageName: "Test", env:testEnv});
+    const pipelineStack = new PipelineStack(app, "PipelineStack",{env: testEnv});
   
     // WHEN                                                                                                         
     pipelineStack.addServiceStage(serviceStack, "Test");

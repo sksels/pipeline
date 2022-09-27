@@ -59,15 +59,7 @@ exports[`Pipeline Stack 1`] = `
                       {
                         "Ref": "AWS::Partition",
                       },
-                      ":logs:",
-                      {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":log-group:/aws/codebuild/",
+                      ":logs:us-east-1:774291489247:log-group:/aws/codebuild/",
                       {
                         "Ref": "CdkBuildProject9382C38D",
                       },
@@ -82,15 +74,7 @@ exports[`Pipeline Stack 1`] = `
                       {
                         "Ref": "AWS::Partition",
                       },
-                      ":logs:",
-                      {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":log-group:/aws/codebuild/",
+                      ":logs:us-east-1:774291489247:log-group:/aws/codebuild/",
                       {
                         "Ref": "CdkBuildProject9382C38D",
                       },
@@ -117,15 +101,7 @@ exports[`Pipeline Stack 1`] = `
                     {
                       "Ref": "AWS::Partition",
                     },
-                    ":codebuild:",
-                    {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":report-group/",
+                    ":codebuild:us-east-1:774291489247:report-group/",
                     {
                       "Ref": "CdkBuildProject9382C38D",
                     },
@@ -285,11 +261,7 @@ exports[`Pipeline Stack 1`] = `
                       {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::774291489247:root",
                     ],
                   ],
                 },
@@ -347,11 +319,7 @@ exports[`Pipeline Stack 1`] = `
                       {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::774291489247:root",
                     ],
                   ],
                 },
@@ -651,15 +619,7 @@ exports[`Pipeline Stack 1`] = `
                     {
                       "Ref": "AWS::Partition",
                     },
-                    ":cloudformation:",
-                    {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":stack/PipelineStack/*",
+                    ":cloudformation:us-east-1:774291489247:stack/PipelineStack/*",
                   ],
                 ],
               },
@@ -692,11 +652,7 @@ exports[`Pipeline Stack 1`] = `
                       {
                         "Ref": "AWS::Partition",
                       },
-                      ":iam::",
-                      {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
+                      ":iam::774291489247:root",
                     ],
                   ],
                 },
@@ -967,15 +923,7 @@ exports[`Pipeline Stack 1`] = `
                       {
                         "Ref": "AWS::Partition",
                       },
-                      ":logs:",
-                      {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":log-group:/aws/codebuild/",
+                      ":logs:us-east-1:774291489247:log-group:/aws/codebuild/",
                       {
                         "Ref": "ServiceBuildProject6D228AFA",
                       },
@@ -990,15 +938,7 @@ exports[`Pipeline Stack 1`] = `
                       {
                         "Ref": "AWS::Partition",
                       },
-                      ":logs:",
-                      {
-                        "Ref": "AWS::Region",
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":log-group:/aws/codebuild/",
+                      ":logs:us-east-1:774291489247:log-group:/aws/codebuild/",
                       {
                         "Ref": "ServiceBuildProject6D228AFA",
                       },
@@ -1025,15 +965,7 @@ exports[`Pipeline Stack 1`] = `
                     {
                       "Ref": "AWS::Partition",
                     },
-                    ":codebuild:",
-                    {
-                      "Ref": "AWS::Region",
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId",
-                    },
-                    ":report-group/",
+                    ":codebuild:us-east-1:774291489247:report-group/",
                     {
                       "Ref": "ServiceBuildProject6D228AFA",
                     },
