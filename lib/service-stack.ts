@@ -5,6 +5,7 @@ import { HttpLambdaIntegration} from "@aws-cdk/aws-apigatewayv2-integrations-alp
 import { Construct } from "constructs";
 import { LambdaDeploymentConfig, LambdaDeploymentGroup } from "aws-cdk-lib/aws-codedeploy";
 import { Statistic, TreatMissingData } from "aws-cdk-lib/aws-cloudwatch";
+import { ServiceHealthCanary } from "./service-health-canary";
 
 interface ServiceStackProps extends StackProps {
   stageName: string;
@@ -45,7 +46,7 @@ export class ServiceStack extends Stack {
       description: "API Endpoint",
     });
 
-    
+    //Deploy lambda for production
     if (props.stageName === 'Prod') {
       new LambdaDeploymentGroup(this, "DeploymentGroup",{
         alias: alias,
@@ -66,9 +67,14 @@ export class ServiceStack extends Stack {
               alarmName: `ServiceErrorAlarm${props.stageName}`,
               evaluationPeriods: 1,
               treatMissingData: TreatMissingData.NOT_BREACHING
-            })
-        ]
-      })
+            }),
+        ],
+      });
+
+      new ServiceHealthCanary(this, "ServiceCanary", {
+        apiEndpoint: httpApi.apiEndpoint,
+        canaryName: "ServiceCanary",
+      });
     }
   }
 }
