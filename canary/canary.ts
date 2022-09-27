@@ -1,5 +1,3 @@
-import { aws_synthetics } from "aws-cdk-lib";
-
 const synthetics = require ("Synthetics");
 
 const canary = async function () {
